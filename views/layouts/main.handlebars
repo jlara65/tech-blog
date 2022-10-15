@@ -18,11 +18,14 @@
       <header>
         <nav class='navbar'>
           <a class='navbar-brand' href='/'>Home</a>
-          <button
-            id='logout'
-            class='btn-no-style navbar-toggler'
-          >logout</button>
-          <a href='/login'>login</a>
+          {{#if loggedIn}}
+            <button
+              id='logout'
+              class='btn-no-style navbar-toggler'
+            >logout</button>
+          {{else}}
+            <a href='/login'>login</a>
+          {{/if}}
         </nav>
         <h1>
           <a href='/'>Tech Blog</a>
@@ -35,6 +38,8 @@
 
       </footer>
     </div>
-    <script src='./javascript/logout.js'></script>
+    {{#if loggedIn}}
+      <script src='./javascript/logout.js'></script>
+    {{/if}}
   </body>
 </html>
