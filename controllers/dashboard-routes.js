@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
+const withAuth = require('../utils/auth');
 
 // get all posts for dashboard
-router.get('/', (req, res) => {
+router.get('/', withAuth, (req, res) => {
   console.log(req.session);
-  console.log('=====================');
+  console.log('========GET All POSTS=============');
   Post.findAll({
     where: {
       user_id: req.session.user_id,
@@ -39,19 +40,16 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/edit/:id', (req, res) => {
-  Post.findByPk(req.params.ed, {
+router.get('/edit/:id', withAuth, (req, res) => {
+  Post.findOne({
+    where: {
+      id: req.params.id,
+    },
     attributes: ['id', 'post_text', 'title', 'created_at'],
     include: [
       {
         model: Comment,
-        attributes: [
-          'id',
-          'comment_text',
-          'post_text',
-          'user_id',
-          'created_at',
-        ],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         include: {
           model: User,
           attributes: ['username'],
@@ -79,7 +77,10 @@ router.get('/edit/:id', (req, res) => {
     });
 });
 router.get('/new', (req, res) => {
-  res.render('new-post');
+  console.log(req.session);
+  res.render('new-post', {
+    loggedIn: true,
+  });
 });
 
 module.exports = router;

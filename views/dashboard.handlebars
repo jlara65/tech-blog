@@ -1,23 +1,15 @@
 <h2>Your Dashboard</h2>
 
-<form class='new-post-form'>
-  <div>
-    <label for='post-title'>Title</label>
-    <input type='text' id='post-title' name='post-title' />
-  </div>
-  <div>
-    <label for='post-text' class='post-text'>Content</label>
-    <input type='text' name='post-text' id='post-text' />
-  </div>
-  <button type='submit' class='btn'>Post</button>
-</form>
+<button type="submit"><a href="/dashboard/new">+ New Post</a></button>
 
 {{#if posts.length}}
-  <section>
-
-    {{#each posts as |post|}}{{/each}}
-
-  </section>
+<section>
+  <ul>
+    {{#each posts as |post|}}
+    <li>
+        {{> post-info post}}
+        <a href="/dashboard/edit/{{post.id}}"> edit post</a>
+    </li>
+    {{/each}}
+</section>
 {{/if}}
-
-<script src='./javascript/add-post.js'></script>

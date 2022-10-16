@@ -1,4 +1,4 @@
-async function newFormHandler(event) {
+async function editFormHandler(event) {
   event.preventDefault();
 
   const title = document.querySelector('input[name="post-title"]').value.trim();
@@ -6,8 +6,12 @@ async function newFormHandler(event) {
     .querySelector('textarea[name="post-text"]')
     .value.trim();
 
-  const response = await fetch(`/api/posts`, {
-    method: 'POST',
+  const post_id = window.location.toString().split('/')[
+    window.location.toString().split('/').length - 1
+  ];
+
+  const response = await fetch(`/api/posts/${post_id}`, {
+    method: 'PUT',
     body: JSON.stringify({
       title,
       post_text,
@@ -16,6 +20,7 @@ async function newFormHandler(event) {
       'Content-Type': 'application/json',
     },
   });
+
   if (response.ok) {
     document.location.replace('/dashboard');
   } else {
@@ -24,5 +29,5 @@ async function newFormHandler(event) {
 }
 
 document
-  .querySelector('.new-post-form')
-  .addEventListener('submit', newFormHandler);
+  .querySelector('.edit-form')
+  .addEventListener('submit', editFormHandler);

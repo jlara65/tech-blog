@@ -1,11 +1,28 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Post, User, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // get all posts
 router.get('/', (req, res) => {
   console.log('===================');
-  Post.findAll()
+  Post.findAll({
+    attributes: ['id', 'post_text', 'title', 'created_at'],
+    include: [
+      {
+        model: User,
+        attributes: ['username'],
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username'],
+        },
+      },
+    ],
+  })
     .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
       console.log(err);
@@ -49,12 +66,13 @@ router.get('/:id', (req, res) => {
 });
 
 // POST /api/posts
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
+  console.log('=========Creating=====');
   // expects {title: 'first post ever!!', post_text: 'I am about to fill with randoms data into post text', user_id: 1}
   Post.create({
     title: req.body.title,
     post_text: req.body.post_text,
-    user_id: req.body.user_id,
+    user_id: req.session.user_id,
   })
     .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
@@ -64,7 +82,7 @@ router.post('/', (req, res) => {
 });
 
 // PUT /api/posts/1
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Post.update(
     {
       title: req.body.title,
