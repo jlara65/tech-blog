@@ -1,15 +1,13 @@
 <h2>Your Dashboard</h2>
 
-<button type="submit"><a href="/dashboard/new">+ New Post</a></button>
+<button class="btn btn-secondary new-post-button" type="submit"><a class="link link-light" href="/dashboard/new">+ New Post</a></button>
 
 {{#if posts.length}}
-<section>
-  <ul>
+
     {{#each posts as |post|}}
-    <li>
+    <article class="post">
         {{> post-info post}}
-        <a href="/dashboard/edit/{{post.id}}"> edit post</a>
-    </li>
+        <a class="d-flex justify-content-end mx-4 " href='/dashboard/edit/{{id}}'>Edit post</a>
+    </article>
     {{/each}}
-</section>
 {{/if}}

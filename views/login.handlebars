@@ -1,17 +1,20 @@
 <!--Login form -->
-<form class='login-form'>
-  <div>
-    <label for='email-login'>email:</label>
-    <input type='text' id='email-login' />
-  </div>
-  <div>
-    <label for='password-login'>password:</label>
-    <input type='password' id='password-login' />
-  </div>
-  <div>
-    <button type='submit'>login</button>
-  </div>
-  <a href='/signup'>Sign Up</a>
-</form>
+<h2 class='pb-4'>Log In</h2>
+<section class='card login-form'>
+  <form class='p-4'>
+    <div class='mb-3'>
+      <label class='form-label' for='email-login'>email:</label>
+      <input class='form-control' type='text' id='email-login' />
+    </div>
+    <div class='mb-3'>
+      <label class='form-label' for='password-login'>password:</label>
+      <input class='form-control' type='password' id='password-login' />
+    </div>
+    <div class='mb-3'>
+      <button class='btn btn-primary' type='submit'>login</button>
+      <button class='btn'><a href='/signup'>Sign Up</a></button>
+    </div>
+  </form>
+</section>
 
 <script src='/javascript/login.js'></script>

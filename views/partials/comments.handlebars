@@ -1,13 +1,15 @@
 <div class='comments'>
   {{#each this}}
-    <section>
-      <div>
-        {{user.username}}
-        on
-        {{format_date created_at}}
-      </div>
-      <div>
+    <section class='post rounded'>
+      <div class='post-content'>
         {{comment_text}}
+      </div>
+      <div class='post-author'>
+        <p>Comment by
+          <span class='post-username'>{{user.username}}</span>
+          on
+          {{format_date created_at}}
+        </p>
       </div>
     </section>
   {{/each}}
