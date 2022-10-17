@@ -1,3 +1,4 @@
+//import the modules.
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -18,13 +19,18 @@ const sess = {
   saveUninitialized: true,
   store: new SequelizeStore({
     db: sequelize,
+    checkExpirationInterval: 1 * 60 * 1000,
+    expiration: 5 * 60 * 1000
   }),
 };
 
+// middleware 
 app.use(session(sess));
 
+// set up handlebars.js engine instance with custom helpers
 const hbs = exphbs.create({ helpers });
 
+// set which template engine to use.
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -34,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
+// listening
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('New listening'));
 });

@@ -1,9 +1,12 @@
+// login function 
 async function loginFormHandler(event) {
   event.preventDefault();
 
+  // retrieve the data value
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
+  // if email and password are not null and process to pass the data into user-routes.
   if (email && password) {
     const response = await fetch('/api/users/login', {
       method: 'post',

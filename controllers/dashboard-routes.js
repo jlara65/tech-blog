@@ -1,3 +1,4 @@
+// imports modules and connections
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
@@ -40,6 +41,7 @@ router.get('/', withAuth, (req, res) => {
     });
 });
 
+// user clicks to edit a specific post id while user is logged in.
 router.get('/edit/:id', withAuth, (req, res) => {
   Post.findOne({
     where: {
@@ -76,6 +78,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+// when a user clicks to add new post and it will render to add-post page
 router.get('/new', (req, res) => {
   console.log(req.session);
   res.render('new-post', {

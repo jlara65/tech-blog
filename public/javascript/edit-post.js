@@ -1,6 +1,8 @@
+// edit-post function
 async function editFormHandler(event) {
   event.preventDefault();
 
+  // retrieve the data values that user wishes to change.
   const title = document.querySelector('input[name="post-title"]').value.trim();
   const post_text = document
     .querySelector('textarea[name="post-text"]')
@@ -10,6 +12,7 @@ async function editFormHandler(event) {
     window.location.toString().split('/').length - 1
   ];
 
+  // send the data to edit the post 
   const response = await fetch(`/api/posts/${post_id}`, {
     method: 'PUT',
     body: JSON.stringify({

@@ -1,8 +1,9 @@
+// imports modules
 const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// GET /api/comments
+// GET /api/comments view all comments
 router.get('/', (req, res) => {
   Comment.findAll({})
     .then((dbCommentData) => res.json(dbCommentData))
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// POST
+// POST - capable to create comment
 router.post('/', withAuth, (req, res) => {
   if (req.session) {
     Comment.create({
@@ -28,7 +29,7 @@ router.post('/', withAuth, (req, res) => {
   }
 });
 
-// delete
+// capable to delete the comment
 router.get('/:id', (req, res) => {
   Comment.destroy({
     where: {
