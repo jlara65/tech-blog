@@ -26,14 +26,15 @@ Writing about tech can be just as important as making it. Developers spend plent
       npm i connect-session-sequelize
       ```
 ## Usage
-
+The Tech-Blog is currently deployed with [Heroku](https://jl-tech-blog.herokuapp.com/)
 
 Run the following command at the root of your project.
 1. Run `mysql -u root -p` in terminal then enter your password when prompted
-2. Enter `source db/schema.sql` to drop if exist database and create ecommerce_db database
+2. Enter `source db/schema.sql` to drop if exist database and create tech_blog_db database
 3. type `Quit` to exit the MySQL
 5. type `npm start` and enter to start connection to the database and open browser `http://localhost:3001`
 
+![Screenshot](./public/images/tech%20blog%20SC.png)
 ## Contributing
 1. Fork this repository
 2. Create a new branch
